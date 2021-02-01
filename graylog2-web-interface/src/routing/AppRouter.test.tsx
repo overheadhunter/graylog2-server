@@ -66,7 +66,7 @@ describe('AppRouter', () => {
 
     await findByText('Hey there!');
 
-    expect(queryByTitle('Graylog Logo')).toBeNull();
+    expect(queryByTitle('Graylog Logo')).not.toBeInTheDocument();
   });
 
   it('renders a not found page for unknown URLs', async () => {

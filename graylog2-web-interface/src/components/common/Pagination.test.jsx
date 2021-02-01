@@ -26,7 +26,7 @@ describe('<Pagination />', () => {
     const { getByTestId } = render(<Pagination currentPage={currentPage}
                                                totalPages={totalPages} />);
 
-    expect(getByTestId('graylog-pagination')).not.toBeNull();
+    expect(getByTestId('graylog-pagination')).toBeInTheDocument();
     expect(getByTestId('graylog-pagination')).toMatchSnapshot();
   });
 
@@ -36,7 +36,7 @@ describe('<Pagination />', () => {
     const { container } = render(<Pagination currentPage={currentPage}
                                              totalPages={totalPages} />);
 
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('should return proper page to `onChange`', () => {

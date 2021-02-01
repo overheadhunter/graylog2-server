@@ -60,6 +60,6 @@ describe('HighlightMessageInQuery', () => {
       </HighlightMessageInQuery>
     ));
 
-    expect(getByText('foobar')).not.toBeNull();
+    expect(getByText('foobar')).toBeInTheDocument();
   });
 });

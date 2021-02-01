@@ -75,7 +75,7 @@ describe('BigDisplayModeConfiguration', () => {
 
     fireEvent.submit(menuItem);
 
-    expect(queryByText('Configuring Full Screen')).toBeNull();
+    expect(queryByText('Configuring Full Screen')).not.toBeInTheDocument();
   });
 
   it('opens modal when menu item is clicked', async () => {
@@ -90,16 +90,16 @@ describe('BigDisplayModeConfiguration', () => {
   it('shows open modal per default if `open` prop is `true`', () => {
     const { getByText } = render(<SUT show />);
 
-    expect(getByText('Configuring Full Screen')).not.toBeNull();
+    expect(getByText('Configuring Full Screen')).toBeInTheDocument();
   });
 
   it('shows all query titles in modal', () => {
     const viewWithQueries = createViewWithQueries();
     const { getByText } = render(<SUT view={viewWithQueries} show />);
 
-    expect(getByText('Page#1')).not.toBeNull();
-    expect(getByText('My awesome Query tab')).not.toBeNull();
-    expect(getByText('Page#3')).not.toBeNull();
+    expect(getByText('Page#1')).toBeInTheDocument();
+    expect(getByText('My awesome Query tab')).toBeInTheDocument();
+    expect(getByText('Page#3')).toBeInTheDocument();
   });
 
   it('should not allow strings for the refresh interval', () => {
@@ -132,7 +132,7 @@ describe('BigDisplayModeConfiguration', () => {
       const { getByTestId } = render(<SUT show />);
       const form = getByTestId('modal-form');
 
-      expect(form).not.toBeNull();
+      expect(form).toBeInTheDocument();
 
       fireEvent.submit(form);
 

@@ -33,6 +33,6 @@ describe('GlobalAppNotifications', () => {
 
     render(<GlobalAppNotifications />);
 
-    expect(screen.getByText('Your license is expiring.')).not.toBeNull();
+    expect(screen.getByText('Your license is expiring.')).toBeInTheDocument();
   });
 });

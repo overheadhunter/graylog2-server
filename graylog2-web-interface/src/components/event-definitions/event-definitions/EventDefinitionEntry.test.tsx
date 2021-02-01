@@ -48,7 +48,7 @@ describe('EventDefinitionEntry', () => {
     const button = screen.getAllByRole('button', { name: /Share/ })[0];
     fireEvent.click(button);
 
-    await waitFor(() => expect(screen.queryByText('EntityShareModal content')).not.toBeNull());
+    await waitFor(() => expect(screen.queryByText('EntityShareModal content')).toBeInTheDocument());
   });
 
   it('allows sharing for admins', async () => {
@@ -57,13 +57,13 @@ describe('EventDefinitionEntry', () => {
     const button = screen.getAllByRole('button', { name: /Share/ })[0];
     fireEvent.click(button);
 
-    await waitFor(() => expect(screen.queryByText('EntityShareModal content')).not.toBeNull());
+    await waitFor(() => expect(screen.queryByText('EntityShareModal content')).toBeInTheDocument());
   });
 
   it('does not allow sharing for viewer', () => {
     const grnPermissions = ['entity:view:grn::::event_definition:event-definition-id'];
     render(renderSUT(grnPermissions));
 
-    expect(screen.getAllByRole('button', { name: /Share/ })[1]).toHaveAttribute('disabled');
+    expect(screen.getAllByRole('button', { name: /Share/ })[1]).toBeDisabled();
   });
 });

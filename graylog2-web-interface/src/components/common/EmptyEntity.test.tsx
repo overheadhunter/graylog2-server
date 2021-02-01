@@ -23,13 +23,13 @@ describe('<EmptyEntity />', () => {
   it('should render children and default title', () => {
     const { getByText } = render(<EmptyEntity>The children</EmptyEntity>);
 
-    expect(getByText('Looks like there is nothing here, yet!')).not.toBeNull();
-    expect(getByText('The children')).not.toBeNull();
+    expect(getByText('Looks like there is nothing here, yet!')).toBeInTheDocument();
+    expect(getByText('The children')).toBeInTheDocument();
   });
 
   it('should render custom title', () => {
     const { getByText } = render(<EmptyEntity title="The custom title">The children</EmptyEntity>);
 
-    expect(getByText('The custom title')).not.toBeNull();
+    expect(getByText('The custom title')).toBeInTheDocument();
   });
 });

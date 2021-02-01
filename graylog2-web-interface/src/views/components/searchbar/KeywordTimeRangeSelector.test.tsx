@@ -75,7 +75,7 @@ describe('KeywordTimeRangeSelector', () => {
   it('renders value passed to it', async () => {
     const { getByDisplayValue } = await asyncRender(<KeywordTimeRangeSelector value="Last hour" />);
 
-    expect(getByDisplayValue('Last hour')).not.toBeNull();
+    expect(getByDisplayValue('Last hour')).toBeInTheDocument();
   });
 
   it('calls onChange if value changes', async () => {
@@ -130,14 +130,14 @@ describe('KeywordTimeRangeSelector', () => {
   it('shows keyword preview if parsing succeeded', async () => {
     const { queryByText } = render(<KeywordTimeRangeSelector value="last five minutes" />);
 
-    await waitFor(() => expect(queryByText('2018-11-14 13:52:38 to 2018-11-14 13:57:38')).not.toBeNull());
+    await waitFor(() => expect(queryByText('2018-11-14 13:52:38 to 2018-11-14 13:57:38')).toBeInTheDocument());
   });
 
   it('does not show keyword preview if parsing fails', async () => {
     ToolsStore.testNaturalDate = () => Promise.reject();
     const { queryByText } = await asyncRender(<KeywordTimeRangeSelector value="invalid" />);
 
-    expect(queryByText('Preview:')).toBeNull();
+    expect(queryByText('Preview:')).not.toBeInTheDocument();
   });
 
   it('shows keyword preview if parsing succeeded after changing input', async () => {
@@ -146,7 +146,7 @@ describe('KeywordTimeRangeSelector', () => {
 
     await changeInput(input, 'last hour');
 
-    await waitFor(() => expect(queryByText('2018-11-14 13:52:38 to 2018-11-14 13:57:38')).not.toBeNull());
+    await waitFor(() => expect(queryByText('2018-11-14 13:52:38 to 2018-11-14 13:57:38')).toBeInTheDocument());
   });
 
   it('does not show keyword preview if parsing fails after changing input', async () => {
@@ -157,7 +157,7 @@ describe('KeywordTimeRangeSelector', () => {
 
     await changeInput(input, 'invalid');
 
-    expect(queryByText('Preview:')).toBeNull();
+    expect(queryByText('Preview:')).not.toBeInTheDocument();
   });
 
   it('shows error message if parsing fails after changing input', async () => {
@@ -168,6 +168,6 @@ describe('KeywordTimeRangeSelector', () => {
 
     await changeInput(input, 'invalid');
 
-    expect(queryByText('Unable to parse keyword.')).not.toBeNull();
+    expect(queryByText('Unable to parse keyword.')).toBeInTheDocument();
   });
 });

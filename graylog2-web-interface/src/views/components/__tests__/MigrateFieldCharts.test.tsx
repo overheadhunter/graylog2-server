@@ -106,14 +106,14 @@ describe('MigrateFieldCharts', () => {
     Store.get.mockImplementation(mockStoreGet());
     const { getByText } = render(<MigrateFieldCharts />);
 
-    expect(getByText('Migrate existing search page charts')).not.toBeNull();
+    expect(getByText('Migrate existing search page charts')).toBeInTheDocument();
   });
 
   it('should not be visible if migration already got executed', () => {
     Store.get.mockImplementation(mockStoreGet(undefined, true));
     const { queryByText } = render(<MigrateFieldCharts />);
 
-    expect(queryByText('Migrate existing search page charts')).toBeNull();
+    expect(queryByText('Migrate existing search page charts')).not.toBeInTheDocument();
   });
 
   describe('migration should', () => {
@@ -127,7 +127,7 @@ describe('MigrateFieldCharts', () => {
       Store.get.mockImplementation(mockStoreGet());
       const { queryByText } = renderAndMigrate();
 
-      await waitFor(() => expect(queryByText('Migrate existing search page charts')).toBeNull());
+      await waitFor(() => expect(queryByText('Migrate existing search page charts')).not.toBeInTheDocument());
 
       expect(Store.set).toHaveBeenCalledWith('pinned-field-charts-migrated', 'finished');
     });

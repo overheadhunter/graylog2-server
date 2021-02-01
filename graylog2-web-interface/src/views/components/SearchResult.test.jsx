@@ -88,7 +88,7 @@ describe('SearchResult', () => {
 
     act(() => jest.advanceTimersByTime(200));
 
-    expect(getByText('Loading...')).not.toBeNull();
+    expect(getByText('Loading...')).toBeInTheDocument();
   });
 
   it('should display loading indicator, when search is loading ', () => {
@@ -97,19 +97,19 @@ describe('SearchResult', () => {
 
     act(() => jest.advanceTimersByTime(500));
 
-    expect(getByText('Updating search results...')).not.toBeNull();
+    expect(getByText('Updating search results...')).toBeInTheDocument();
   });
 
   it('should hide loading indicator, when search is not loading', () => {
     asMock(SearchLoadingStateStore.getInitialState).mockReturnValueOnce({ isLoading: false });
     const { queryByText } = render(<SimpleSearchResult />);
 
-    expect(queryByText('Updating search results...')).toBeNull();
+    expect(queryByText('Updating search results...')).not.toBeInTheDocument();
   });
 
   it('should display info message when field types and search results exists, but no widgets are defined', () => {
     const { getByText } = render(<SimpleSearchResult />);
 
-    expect(getByText('Create a new widget by selecting a widget type in the left sidebar section "Create".')).not.toBeNull();
+    expect(getByText('Create a new widget by selecting a widget type in the left sidebar section "Create".')).toBeInTheDocument();
   });
 });

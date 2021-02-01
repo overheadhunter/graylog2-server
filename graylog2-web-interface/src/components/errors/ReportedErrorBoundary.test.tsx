@@ -32,7 +32,7 @@ describe('ReportedErrorBoundary', () => {
   it('displays child component if there is no error', () => {
     const { getByText } = render(<ReportedErrorBoundary>Hello World!</ReportedErrorBoundary>);
 
-    expect(getByText('Hello World!')).not.toBeNull();
+    expect(getByText('Hello World!')).toBeInTheDocument();
   });
 
   it('displays runtime error page when react error got reported', async () => {
@@ -42,10 +42,10 @@ describe('ReportedErrorBoundary', () => {
       ErrorsActions.report(createReactError(new Error('The error message'), { componentStack: 'The component stack' }));
     });
 
-    await waitFor(() => expect(queryByText('Hello World!')).toBeNull());
+    await waitFor(() => expect(queryByText('Hello World!')).not.toBeInTheDocument());
 
-    expect(getByText('Something went wrong.')).not.toBeNull();
-    expect(getByText('The error message')).not.toBeNull();
+    expect(getByText('Something went wrong.')).toBeInTheDocument();
+    expect(getByText('The error message')).toBeInTheDocument();
   });
 
   it('displays not found page when not found error got reported', async () => {
@@ -56,10 +56,10 @@ describe('ReportedErrorBoundary', () => {
       ErrorsActions.report(createNotFoundError(new FetchError('The request error message', response)));
     });
 
-    await waitFor(() => expect(queryByText('Hello World!')).toBeNull());
+    await waitFor(() => expect(queryByText('Hello World!')).not.toBeInTheDocument());
 
-    expect(getByText('Page not found')).not.toBeNull();
-    expect(getByText('The party gorilla was just here, but had another party to rock.')).not.toBeNull();
+    expect(getByText('Page not found')).toBeInTheDocument();
+    expect(getByText('The party gorilla was just here, but had another party to rock.')).toBeInTheDocument();
   });
 
   it('displays reported error with an unkown type', async () => {
@@ -70,10 +70,10 @@ describe('ReportedErrorBoundary', () => {
       ErrorsActions.report({ ...createNotFoundError(new FetchError('The error message', response)), type: 'UnkownReportedError' });
     });
 
-    await waitFor(() => expect(queryByText('Hello World!')).toBeNull());
+    await waitFor(() => expect(queryByText('Hello World!')).not.toBeInTheDocument());
 
-    expect(getByText('Something went wrong')).not.toBeNull();
-    expect(getByText(/The error message/)).not.toBeNull();
+    expect(getByText('Something went wrong')).toBeInTheDocument();
+    expect(getByText(/The error message/)).toBeInTheDocument();
   });
 
   it('displays unauthorized error page when unauthorized error got reported', async () => {
@@ -86,7 +86,7 @@ describe('ReportedErrorBoundary', () => {
 
     await findByText('Missing Permissions');
 
-    expect(queryByText('Hello World!')).toBeNull();
+    expect(queryByText('Hello World!')).not.toBeInTheDocument();
     expect(queryByText(/The request error message/)).toBeInTheDocument();
   });
 
@@ -94,16 +94,16 @@ describe('ReportedErrorBoundary', () => {
     const { getByText } = render(<ReportedErrorBoundary>Hello World!</ReportedErrorBoundary>);
     const response = { status: 403, body: { message: 'The request error message' } };
 
-    expect(getByText('Hello World!')).not.toBeNull();
+    expect(getByText('Hello World!')).toBeInTheDocument();
 
     suppressConsole(() => {
       ErrorsActions.report(createUnauthorizedError(new FetchError('The request error message', response)));
     });
 
-    await waitFor(() => expect(getByText('Missing Permissions')).not.toBeNull());
+    await waitFor(() => expect(getByText('Missing Permissions')).toBeInTheDocument());
 
     act(() => history.push('/'));
 
-    await waitFor(() => expect(getByText('Hello World!')).not.toBeNull());
+    await waitFor(() => expect(getByText('Hello World!')).toBeInTheDocument());
   });
 });

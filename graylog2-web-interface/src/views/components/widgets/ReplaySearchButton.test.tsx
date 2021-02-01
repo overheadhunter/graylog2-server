@@ -34,7 +34,7 @@ describe('ReplaySearchButton', () => {
   it('renders play button', () => {
     const { getByTitle } = render(<ReplaySearchButton />);
 
-    expect(getByTitle('Replay search')).not.toBeNull();
+    expect(getByTitle('Replay search')).toBeInTheDocument();
   });
 
   describe('generates link', () => {

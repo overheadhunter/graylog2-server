@@ -57,7 +57,7 @@ describe('DashboardSearchBar', () => {
   it('allows selecting relative time range', async () => {
     const { getByText, queryByText, getByTitle } = render(<DashboardSearchBar onExecute={onExecute} config={config} />);
 
-    expect(queryByText('Search in last five minutes')).toBeNull();
+    expect(queryByText('Search in last five minutes')).not.toBeInTheDocument();
 
     const relativeTimerange = getByText('Relative');
 
@@ -77,7 +77,7 @@ describe('DashboardSearchBar', () => {
   it('allows selecting absolute time range', async () => {
     const { getByText, getAllByPlaceholderText, queryByPlaceholderText, getByTitle } = render(<DashboardSearchBar onExecute={onExecute} config={config} />);
 
-    expect(queryByPlaceholderText('YYYY-MM-DD HH:mm:ss')).toBeNull();
+    expect(queryByPlaceholderText('YYYY-MM-DD HH:mm:ss')).not.toBeInTheDocument();
 
     const absoluteTimerange = getByText('Absolute');
 
@@ -101,7 +101,7 @@ describe('DashboardSearchBar', () => {
   it('allows selecting keyword time range', async () => {
     const { getByText, getByPlaceholderText, queryByPlaceholderText, getByTitle } = render(<DashboardSearchBar onExecute={onExecute} config={config} />);
 
-    expect(queryByPlaceholderText('Last week')).toBeNull();
+    expect(queryByPlaceholderText('Last week')).not.toBeInTheDocument();
 
     const keywordTimerange = getByText('Keyword');
 

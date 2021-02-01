@@ -41,7 +41,7 @@ describe('RouterErrorBoundary', () => {
       </RouterErrorBoundary>,
     );
 
-    expect(getByText('Hello World!')).not.toBeNull();
+    expect(getByText('Hello World!')).toBeInTheDocument();
   });
 
   it('displays error after catching', () => {
@@ -52,7 +52,7 @@ describe('RouterErrorBoundary', () => {
         </RouterErrorBoundary>,
       );
 
-      expect(getByText('Oh no, a banana peel fell on the party gorilla\'s head!')).not.toBeNull();
+      expect(getByText('Oh no, a banana peel fell on the party gorilla\'s head!')).toBeInTheDocument();
     });
   });
 });

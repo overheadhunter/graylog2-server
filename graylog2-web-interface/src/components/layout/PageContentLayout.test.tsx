@@ -36,7 +36,7 @@ describe('PageContentLayout', () => {
 
     await screen.findByText('Graylog 23.42.0-SNAPSHOT+SPECIALFEATURE', { exact: false });
 
-    expect(screen.getByText('The content')).not.toBeNull();
+    expect(screen.getByText('The content')).toBeInTheDocument();
   });
 
   it('displays global notifications', async () => {
@@ -53,6 +53,6 @@ describe('PageContentLayout', () => {
 
     await screen.findByText('Graylog 23.42.0-SNAPSHOT+SPECIALFEATURE', { exact: false });
 
-    expect(screen.getByText('Your license is expiring.')).not.toBeNull();
+    expect(screen.getByText('Your license is expiring.')).toBeInTheDocument();
   });
 });

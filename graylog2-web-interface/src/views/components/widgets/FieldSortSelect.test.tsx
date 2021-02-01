@@ -37,7 +37,7 @@ describe('FieldSortSelect', () => {
   it('should display current sort as selected option', () => {
     const { getByText } = render(<FieldSortSelect fields={fields} onChange={() => {}} sort={sort} />);
 
-    expect(getByText('http_method')).not.toBeNull();
+    expect(getByText('http_method')).toBeInTheDocument();
   });
 
   it('should open menu when focused', async () => {

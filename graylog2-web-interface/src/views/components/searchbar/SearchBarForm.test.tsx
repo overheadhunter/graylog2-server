@@ -45,7 +45,7 @@ describe('SearchBarForm', () => {
 
       await changeInput(fromDate, '2020-01-18 10:04:30.329');
 
-      await waitFor(() => expect(queryByText('Start date must be before end date')).not.toBeNull());
+      await waitFor(() => expect(queryByText('Start date must be before end date')).toBeInTheDocument());
     });
   });
 });

@@ -178,7 +178,7 @@ describe('CSVExportModal', () => {
 
     fireEvent.click(submitButton);
 
-    expect(getByText('Downloading...')).not.toBeNull();
+    expect(getByText('Downloading...')).toBeInTheDocument();
 
     await waitFor(() => expect(exportSearchMessagesAction).toHaveBeenCalledTimes(1));
   });
@@ -238,11 +238,11 @@ describe('CSVExportModal', () => {
       const { queryByText } = render(<SearchCSVExportModal />);
 
       // should not show widget selection but settings form
-      expect(queryByText(/Define the fields for your CSV file./)).not.toBeNull();
+      expect(queryByText(/Define the fields for your CSV file./)).toBeInTheDocument();
       // should not show info about selected widget
-      expect(queryByText(/The following settings are based on the message table:/)).toBeNull();
+      expect(queryByText(/The following settings are based on the message table:/)).not.toBeInTheDocument();
       // should not allow widget selection
-      expect(queryByText('Select different message table')).toBeNull();
+      expect(queryByText('Select different message table')).not.toBeInTheDocument();
     });
 
     it('should export all messages with default fields when no widget exists', async () => {
@@ -273,11 +273,11 @@ describe('CSVExportModal', () => {
       const { queryByText } = render(<SearchCSVExportModal view={viewWithOneWidget(View.Type.Search)} />);
 
       // should not show widget selection but settings form
-      expect(queryByText(/Define the fields for your CSV file./)).not.toBeNull();
+      expect(queryByText(/Define the fields for your CSV file./)).toBeInTheDocument();
       // should show info about selected widget
-      expect(queryByText(/The following settings are based on the message table:/)).not.toBeNull();
+      expect(queryByText(/The following settings are based on the message table:/)).toBeInTheDocument();
       // should not allow widget selection
-      expect(queryByText('Select different message table')).toBeNull();
+      expect(queryByText('Select different message table')).not.toBeInTheDocument();
     });
 
     it('should export messages related to preselected widget', async () => {
@@ -296,23 +296,23 @@ describe('CSVExportModal', () => {
 
       const select = getByLabelText('Select message table');
 
-      expect(queryByText(/Please select a message table to adopt its fields./)).not.toBeNull();
+      expect(queryByText(/Please select a message table to adopt its fields./)).toBeInTheDocument();
 
       await selectEvent.openMenu(select);
 
-      expect(queryByText('Widget 1')).not.toBeNull();
-      expect(queryByText('Widget 2')).not.toBeNull();
+      expect(queryByText('Widget 1')).toBeInTheDocument();
+      expect(queryByText('Widget 2')).toBeInTheDocument();
     });
 
     it('preselect widget on direct export', () => {
       const { queryByText } = render(<SearchCSVExportModal view={viewWithMultipleWidgets(View.Type.Search)} directExportWidgetId="widget-id-1" />);
 
       // should not show widget selection but settings form
-      expect(queryByText(/Define the fields for your CSV file./)).not.toBeNull();
+      expect(queryByText(/Define the fields for your CSV file./)).toBeInTheDocument();
       // should show info about selected widget
-      expect(queryByText(/The following settings are based on the message table:/)).not.toBeNull();
+      expect(queryByText(/The following settings are based on the message table:/)).toBeInTheDocument();
       // should not allow widget selection
-      expect(queryByText('Select different message table')).toBeNull();
+      expect(queryByText('Select different message table')).not.toBeInTheDocument();
     });
 
     it('should export widget messages on direct export', async () => {
@@ -335,25 +335,25 @@ describe('CSVExportModal', () => {
     it('show warning when no messages widget exists', () => {
       const { queryByText } = render(<DashboardCSVExportModal view={viewWithoutWidget(View.Type.Dashboard)} />);
 
-      expect(queryByText('You need to create a message table widget to export its result.')).not.toBeNull();
+      expect(queryByText('You need to create a message table widget to export its result.')).toBeInTheDocument();
     });
 
     it('does not preselect widget when only one exists', () => {
       const { queryByText } = render(<DashboardCSVExportModal view={viewWithOneWidget(View.Type.Dashboard)} />);
 
-      expect(queryByText(/Please select the message table you want to export the search results for./)).not.toBeNull();
+      expect(queryByText(/Please select the message table you want to export the search results for./)).toBeInTheDocument();
     });
 
     it('show widget selection if more than one exists', async () => {
       const { queryByText, getByLabelText } = render(<DashboardCSVExportModal view={viewWithMultipleWidgets(View.Type.Dashboard)} />);
       const select = getByLabelText('Select message table');
 
-      expect(queryByText(/Please select the message table you want to export the search results for./)).not.toBeNull();
+      expect(queryByText(/Please select the message table you want to export the search results for./)).toBeInTheDocument();
 
       await selectEvent.openMenu(select);
 
-      expect(queryByText('Widget 1')).not.toBeNull();
-      expect(queryByText('Widget 2')).not.toBeNull();
+      expect(queryByText('Widget 1')).toBeInTheDocument();
+      expect(queryByText('Widget 2')).toBeInTheDocument();
     });
 
     it('show widget selection with widgets from all dashboard pages', async () => {
@@ -373,19 +373,19 @@ describe('CSVExportModal', () => {
 
       await selectEvent.openMenu(select);
 
-      expect(queryByText('Widget 1')).not.toBeNull();
-      expect(queryByText('Widget 2')).not.toBeNull();
+      expect(queryByText('Widget 1')).toBeInTheDocument();
+      expect(queryByText('Widget 2')).toBeInTheDocument();
     });
 
     it('preselect widget on direct widget export', () => {
       const { queryByText } = render(<DashboardCSVExportModal view={viewWithMultipleWidgets(View.Type.Dashboard)} directExportWidgetId="widget-id-1" />);
 
       // should not show widget selection but settings form
-      expect(queryByText(/Define the fields for your CSV file./)).not.toBeNull();
+      expect(queryByText(/Define the fields for your CSV file./)).toBeInTheDocument();
       // should show info about selected widget
-      expect(queryByText(/You are currently exporting the search results for the message table:/)).not.toBeNull();
+      expect(queryByText(/You are currently exporting the search results for the message table:/)).toBeInTheDocument();
       // should not allow widget selection
-      expect(queryByText('Select different message table')).toBeNull();
+      expect(queryByText('Select different message table')).not.toBeInTheDocument();
     });
 
     it('should export widget messages on direct export', async () => {

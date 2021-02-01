@@ -66,8 +66,8 @@ describe('SearchBar', () => {
   it('should render the SearchBar', () => {
     const { getByText } = render(<SearchBar config={config} />);
 
-    expect(getByText('Search in last day')).not.toBeNull();
-    expect(getByText('Search in all messages')).not.toBeNull();
+    expect(getByText('Search in last day')).toBeInTheDocument();
+    expect(getByText('Search in all messages')).toBeInTheDocument();
   });
 
   it('should update query when search is performed', async () => {

@@ -31,8 +31,8 @@ describe('UnauthorizedErrorPage', () => {
       const response = { status: 403, body: { message: 'The request error message' } };
       const { getByText } = render(<UnauthorizedErrorPage error={new FetchError('The request error message', response)} />);
 
-      expect(getByText('Missing Permissions')).not.toBeNull();
-      expect(getByText(/The request error message/)).not.toBeNull();
+      expect(getByText('Missing Permissions')).toBeInTheDocument();
+      expect(getByText(/The request error message/)).toBeInTheDocument();
     });
   });
 });

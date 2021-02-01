@@ -37,12 +37,12 @@ describe('QueryTitleEditModal', () => {
     );
 
     // Modal should not be visible initially
-    expect(queryByText(modalHeadline)).toBeNull();
+    expect(queryByText(modalHeadline)).not.toBeInTheDocument();
 
     openModal(modalRef);
 
     // Modal should be visible
-    expect(queryByText(modalHeadline)).not.toBeNull();
+    expect(queryByText(modalHeadline)).toBeInTheDocument();
   });
 
   it('has correct initial input value', () => {
@@ -54,7 +54,7 @@ describe('QueryTitleEditModal', () => {
 
     openModal(modalRef);
 
-    expect(getByDisplayValue('CurrentTitle')).not.toBeNull();
+    expect(getByDisplayValue('CurrentTitle')).toBeInTheDocument();
   });
 
   it('updates query title and closes', async () => {
@@ -77,7 +77,7 @@ describe('QueryTitleEditModal', () => {
 
     // Modal should not be visible anymore
     await waitFor(() => {
-      expect(queryByText(modalHeadline)).toBeNull();
+      expect(queryByText(modalHeadline)).not.toBeInTheDocument();
     });
   });
 
@@ -92,7 +92,7 @@ describe('QueryTitleEditModal', () => {
     openModal(modalRef);
 
     // Modal should be visible
-    expect(queryByText(modalHeadline)).not.toBeNull();
+    expect(queryByText(modalHeadline)).toBeInTheDocument();
 
     // Modal should not be visible after click on cancel
     const cancelButton = getByText('Cancel');
@@ -100,7 +100,7 @@ describe('QueryTitleEditModal', () => {
     fireEvent.click(cancelButton);
 
     await waitFor(() => {
-      expect(queryByText(modalHeadline)).toBeNull();
+      expect(queryByText(modalHeadline)).not.toBeInTheDocument();
     });
   });
 });

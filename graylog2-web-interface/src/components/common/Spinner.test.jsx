@@ -26,20 +26,20 @@ describe('<Spinner />', () => {
   it('should render without props', () => {
     const { getByText } = render(<Spinner delay={0} />);
 
-    expect(getByText('Loading...')).not.toBeNull();
+    expect(getByText('Loading...')).toBeInTheDocument();
   });
 
   it('should render with a different text string', () => {
     const text = 'Hello world!';
     const { getByText } = render(<Spinner text={text} delay={0} />);
 
-    expect(getByText(text)).not.toBeNull();
+    expect(getByText(text)).toBeInTheDocument();
   });
 
   it('should not be visible initially', () => {
     const { queryByText } = render(<Spinner />);
 
-    expect(queryByText('Loading ...')).toBeNull();
+    expect(queryByText('Loading ...')).not.toBeInTheDocument();
   });
 
   it('should be visible after when delay is completed', () => {

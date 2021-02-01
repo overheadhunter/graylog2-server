@@ -32,6 +32,6 @@ describe('GranteesSelector', () => {
 
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(getByText('The grantee is required.')).not.toBeNull());
+    await waitFor(() => expect(getByText('The grantee is required.')).toBeInTheDocument());
   });
 });

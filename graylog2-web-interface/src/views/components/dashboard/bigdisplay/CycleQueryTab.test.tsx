@@ -45,7 +45,7 @@ describe('CycleQueryTab', () => {
   it('does not return markup', () => {
     const { container } = render(<CycleQueryTab view={view} activeQuery="bar" interval={1} tabs={[1, 2]} />);
 
-    expect(container.firstChild).toEqual(null);
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('should not switch to anything before interval', () => {

@@ -96,7 +96,7 @@ describe('ViewActionsMenu', () => {
 
     fireEvent.click(saveAsMenuItem);
 
-    expect(getByText('Save new dashboard')).not.toBeNull();
+    expect(getByText('Save new dashboard')).toBeInTheDocument();
   });
 
   it('should open edit dashboard meta information modal', () => {
@@ -105,7 +105,7 @@ describe('ViewActionsMenu', () => {
 
     fireEvent.click(editMenuItem);
 
-    expect(getByText('Editing dashboard')).not.toBeNull();
+    expect(getByText('Editing dashboard')).toBeInTheDocument();
   });
 
   it('should dashboard share modal', () => {
@@ -114,6 +114,6 @@ describe('ViewActionsMenu', () => {
 
     fireEvent.click(openShareButton);
 
-    expect(getByText(/Sharing/i)).not.toBeNull();
+    expect(getByText(/Sharing/i)).toBeInTheDocument();
   });
 });

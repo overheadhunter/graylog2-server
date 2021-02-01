@@ -63,6 +63,6 @@ describe('MessageActions', () => {
   it('does not render surrounding search button if `disableSurroundingSearch` is `true`', () => {
     const { queryByText } = renderActions({ disableSurroundingSearch: true });
 
-    expect(queryByText('Show surrounding messages')).toBeNull();
+    expect(queryByText('Show surrounding messages')).not.toBeInTheDocument();
   });
 });

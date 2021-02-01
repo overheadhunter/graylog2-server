@@ -43,8 +43,8 @@ describe('Select', () => {
 
     fireEvent.change(input, { target: { value: 'all' } });
 
-    expect(getByText('ALL UPPER')).not.toBeNull();
-    expect(getByText('all lower')).not.toBeNull();
+    expect(getByText('ALL UPPER')).toBeInTheDocument();
+    expect(getByText('all lower')).toBeInTheDocument();
   });
 
   it('considers case if `ignoreCase` is `false`', async () => {
@@ -59,13 +59,13 @@ describe('Select', () => {
 
     fireEvent.change(input, { target: { value: 'all' } });
 
-    expect(queryByText('ALL UPPER')).toBeNull();
-    expect(getByText('all lower')).not.toBeNull();
+    expect(queryByText('ALL UPPER')).not.toBeInTheDocument();
+    expect(getByText('all lower')).toBeInTheDocument();
 
     fireEvent.change(input, { target: { value: 'ALL' } });
 
-    expect(getByText('ALL UPPER')).not.toBeNull();
-    expect(queryByText('all lower')).toBeNull();
+    expect(getByText('ALL UPPER')).toBeInTheDocument();
+    expect(queryByText('all lower')).not.toBeInTheDocument();
   });
 
   it('does not ignore accents per default', async () => {
@@ -80,11 +80,11 @@ describe('Select', () => {
 
     fireEvent.change(input, { target: { value: 'hermanos' } });
 
-    expect(queryByText('Los Pollos Hermaños')).toBeNull();
+    expect(queryByText('Los Pollos Hermaños')).not.toBeInTheDocument();
 
     fireEvent.change(input, { target: { value: 'hermaños' } });
 
-    expect(getByText('Los Pollos Hermaños')).not.toBeNull();
+    expect(getByText('Los Pollos Hermaños')).toBeInTheDocument();
   });
 
   it('ignores accents if `ignoreAccents` is `true`', async () => {
@@ -99,6 +99,6 @@ describe('Select', () => {
 
     fireEvent.change(input, { target: { value: 'hermanos' } });
 
-    expect(getByText('Los Pollos Hermaños')).not.toBeNull();
+    expect(getByText('Los Pollos Hermaños')).toBeInTheDocument();
   });
 });

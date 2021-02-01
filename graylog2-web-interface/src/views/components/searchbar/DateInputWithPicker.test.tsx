@@ -33,7 +33,7 @@ describe('DateInputWithPicker', () => {
   });
 
   it('shows date picker when focussing input', async () => {
-    const { getByPlaceholderText, getByText } = render((
+    const { getByPlaceholderText, getByText, findByText } = render((
       <DateInputWithPicker value="2020-04-08 13:22:46"
                            onChange={() => {}}
                            title="Pick start date"
@@ -44,7 +44,7 @@ describe('DateInputWithPicker', () => {
 
     fireEvent.click(input);
 
-    await waitFor(() => getByText('Pick start date'));
+    await findByText('Pick start date');
   });
 
   it('calls onChange upon changing the input', () => {

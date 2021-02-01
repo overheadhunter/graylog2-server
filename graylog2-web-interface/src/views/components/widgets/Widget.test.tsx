@@ -166,14 +166,14 @@ describe('<Widget />', () => {
   it('should render loading widget for widget without data', () => {
     const { queryAllByTestId } = render(<DummyWidget />);
 
-    expect(queryAllByTestId('loading-widget')).toHaveLength(1);
+    expect(queryByTestId('loading-widget')).toBeInTheDocument();
   });
 
   it('should render error widget for widget with one error', () => {
     const { queryAllByText } = render(<DummyWidget errors={[{ description: 'The widget has failed: the dungeon collapsed, you die!' }]} />);
-    const errorWidgets = queryAllByText('The widget has failed: the dungeon collapsed, you die!');
+    const errorWidgets = queryByText('The widget has failed: the dungeon collapsed, you die!');
 
-    expect(errorWidgets).toHaveLength(1);
+    expect(errorWidgets).toBeInTheDocument();
   });
 
   it('should render error widget including all error messages for widget with multiple errors', () => {
@@ -184,19 +184,19 @@ describe('<Widget />', () => {
       ]} />
     ));
 
-    const errorWidgets1 = queryAllByText('Something is wrong');
+    const errorWidgets1 = queryByText('Something is wrong');
 
-    expect(errorWidgets1).toHaveLength(1);
+    expect(errorWidgets1).toBeInTheDocument();
 
-    const errorWidgets2 = queryAllByText('Very wrong');
+    const errorWidgets2 = queryByText('Very wrong');
 
-    expect(errorWidgets2).toHaveLength(1);
+    expect(errorWidgets2).toBeInTheDocument();
   });
 
   it('should render correct widget visualization for widget with data', () => {
     const { queryAllByTestId, queryAllByTitle } = render(<DummyWidget data={[]} />);
 
-    expect(queryAllByTestId('loading-widget')).toHaveLength(0);
+    expect(queryByTestId('loading-widget')).not.toBeInTheDocument();
     expect(queryAllByTitle('Widget Title')).toHaveLength(2);
   });
 
@@ -277,9 +277,9 @@ describe('<Widget />', () => {
 
   it('adds cancel action to widget in edit mode', () => {
     const { queryAllByText } = render(<DummyWidget editing />);
-    const cancel = queryAllByText('Cancel');
+    const cancel = queryByText('Cancel');
 
-    expect(cancel).toHaveLength(1);
+    expect(cancel).toBeInTheDocument();
   });
 
   it('does not trigger action when clicking cancel after no changes were made', () => {
@@ -352,7 +352,7 @@ describe('<Widget />', () => {
 
     fireEvent.click(actionToggle);
 
-    expect(queryByText('Export to CSV')).toBeNull();
+    expect(queryByText('Export to CSV')).not.toBeInTheDocument();
   });
 
   it('allows export to CSV for message tables', () => {
@@ -371,7 +371,7 @@ describe('<Widget />', () => {
 
     fireEvent.click(exportButton);
 
-    expect(getByText('Export message table search results to CSV')).not.toBeNull();
+    expect(getByText('Export message table search results to CSV')).toBeInTheDocument();
   });
 
   describe('copy widget to dashboard', () => {

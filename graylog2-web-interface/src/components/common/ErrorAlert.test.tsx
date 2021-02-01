@@ -23,22 +23,22 @@ describe('ErrorAlert', () => {
   it('should display an Error', () => {
     render(<ErrorAlert>Franz</ErrorAlert>);
 
-    expect(screen.queryByText('Franz')).not.toBeNull();
-    expect(screen.queryByText('Runtime Error')).toBeNull();
+    expect(screen.queryByText('Franz')).toBeInTheDocument();
+    expect(screen.queryByText('Runtime Error')).not.toBeInTheDocument();
   });
 
   it('should display an Runtime Error', () => {
     render(<ErrorAlert runtimeError>Franz</ErrorAlert>);
 
-    expect(screen.queryByText('Franz')).not.toBeNull();
-    expect(screen.queryByText('Runtime Error')).not.toBeNull();
+    expect(screen.queryByText('Franz')).toBeInTheDocument();
+    expect(screen.queryByText('Runtime Error')).toBeInTheDocument();
   });
 
   it('should display nothing without children', () => {
     render(<ErrorAlert />);
 
-    expect(screen.queryByText('Franz')).toBeNull();
-    expect(screen.queryByText('Runtime Error')).toBeNull();
+    expect(screen.queryByText('Franz')).not.toBeInTheDocument();
+    expect(screen.queryByText('Runtime Error')).not.toBeInTheDocument();
   });
 
   it('should call onClose handler', () => {

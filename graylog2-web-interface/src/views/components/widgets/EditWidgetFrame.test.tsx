@@ -79,7 +79,7 @@ describe('EditWidgetFrame', () => {
       const { getByDisplayValue, getByText, getByTitle } = renderSUT();
       const timeRangeSelect = getByDisplayValue('Search in last day');
 
-      expect(timeRangeSelect).not.toBeNull();
+      expect(timeRangeSelect).toBeInTheDocument();
 
       const optionForAllMessages = asElement(getByText('Search in all messages'), HTMLOptionElement);
 
@@ -98,7 +98,7 @@ describe('EditWidgetFrame', () => {
       const { getByText, getByTitle } = renderSUT();
       const absoluteTimeRangeSelect = getByText('Absolute');
 
-      expect(absoluteTimeRangeSelect).not.toBeNull();
+      expect(absoluteTimeRangeSelect).toBeInTheDocument();
 
       fireEvent.click(absoluteTimeRangeSelect);
 

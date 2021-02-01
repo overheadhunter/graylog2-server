@@ -28,20 +28,20 @@ describe('RuntimeErrorPage', () => {
   it('displays runtime error', () => {
     const { getByText } = render(<SimpleRuntimeErrorPage />);
 
-    expect(getByText('Something went wrong.')).not.toBeNull();
-    expect(getByText('The error message')).not.toBeNull();
+    expect(getByText('Something went wrong.')).toBeInTheDocument();
+    expect(getByText('The error message')).toBeInTheDocument();
   });
 
   it('displays component stack', async () => {
     const { getByText, queryByText } = render(<SimpleRuntimeErrorPage />);
 
-    expect(getByText('Something went wrong.')).not.toBeNull();
-    expect(queryByText('The component stack')).toBeNull();
+    expect(getByText('Something went wrong.')).toBeInTheDocument();
+    expect(queryByText('The component stack')).not.toBeInTheDocument();
 
     const showMoreButton = getByText('Show more');
 
     fireEvent.click(showMoreButton);
 
-    waitFor(() => expect(getByText('The component stack')).not.toBeNull());
+    waitFor(() => expect(getByText('The component stack')).toBeInTheDocument());
   });
 });

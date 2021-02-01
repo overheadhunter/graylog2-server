@@ -34,7 +34,7 @@ describe('Delayed', () => {
       </Delayed>
     ));
 
-    expect(getByText('Hello World!')).not.toBeNull();
+    expect(getByText('Hello World!')).toBeInTheDocument();
   });
 
   it('renders children after delay has passed', () => {
@@ -44,10 +44,10 @@ describe('Delayed', () => {
       </Delayed>
     ));
 
-    expect(queryByText('Hello World!')).toBeNull();
+    expect(queryByText('Hello World!')).not.toBeInTheDocument();
 
     act(() => jest.advanceTimersByTime(200));
 
-    expect(getByText('Hello World!')).not.toBeNull();
+    expect(getByText('Hello World!')).toBeInTheDocument();
   });
 });

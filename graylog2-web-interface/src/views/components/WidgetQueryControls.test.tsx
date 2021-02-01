@@ -102,7 +102,7 @@ describe('WidgetQueryControls', () => {
     it('does not show an indicator if global override is not set', async () => {
       const { queryByText } = renderSUT({ globalOverride: emptyGlobalOverride });
 
-      expect(queryByText(indicatorText)).toBeNull();
+      expect(queryByText(indicatorText)).not.toBeInTheDocument();
     });
 
     it('triggers resetting the global override store when reset filter button is clicked', async () => {
@@ -131,7 +131,7 @@ describe('WidgetQueryControls', () => {
         </Wrapper>,
       );
 
-      expect(queryByText(indicatorText)).toBeNull();
+      expect(queryByText(indicatorText)).not.toBeInTheDocument();
     });
 
     it('disables timerange controls when global override is present', () => {

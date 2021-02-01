@@ -74,6 +74,6 @@ describe('WidgetOverrideElements', () => {
 
     await findByText('I was thrown!');
 
-    expect(queryByText('Hello world!')).toBeNull();
+    expect(queryByText('Hello world!')).not.toBeInTheDocument();
   });
 });

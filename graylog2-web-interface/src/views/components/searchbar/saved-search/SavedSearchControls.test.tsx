@@ -131,7 +131,7 @@ describe('SavedSearchControls', () => {
         const wrapper = mount(<SimpleSavedSearchControls currentUser={owningUser} viewStoreState={createViewStoreState(false, owningUser.id)} />);
         const shareSearch = wrapper.find('button[title="Share"]');
 
-        expect(shareSearch).not.toBeDisabled();
+        expect(shareSearch).toBeEnabled();
       });
 
       it('which should be enabled if current user is permitted to edit search', () => {
@@ -146,7 +146,7 @@ describe('SavedSearchControls', () => {
 
         const shareSearch = wrapper.find('button[title="Share"]');
 
-        expect(shareSearch).not.toBeDisabled();
+        expect(shareSearch).toBeEnabled();
       });
 
       it('which should be enabled if current user is admin', () => {
@@ -154,7 +154,7 @@ describe('SavedSearchControls', () => {
 
         const shareSearch = wrapper.find('button[title="Share"]');
 
-        expect(shareSearch).not.toBeDisabled();
+        expect(shareSearch).toBeEnabled();
       });
 
       it('which should be hidden if search is unsaved', () => {

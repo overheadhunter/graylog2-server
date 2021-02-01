@@ -107,14 +107,14 @@ describe('EntityShareModal', () => {
 
       act(() => jest.advanceTimersByTime(200));
 
-      expect(getByText('Loading...')).not.toBeNull();
+      expect(getByText('Loading...')).toBeInTheDocument();
     });
 
     it('displays an error if validation failed and disables submit', () => {
       asMock(EntityShareStore.getInitialState).mockReturnValueOnce(mockFailedStore);
       const { getByText } = render(<SimpleEntityShareModal />);
 
-      expect(getByText('Removing the following owners will leave the entity ownerless:')).not.toBeNull();
+      expect(getByText('Removing the following owners will leave the entity ownerless:')).toBeInTheDocument();
       expect(getByText('Save')).toBeDisabled();
     });
 
@@ -122,14 +122,14 @@ describe('EntityShareModal', () => {
       const { getByText, getByDisplayValue } = render(<SimpleEntityShareModal />);
 
       // provided description
-      expect(getByText('The description')).not.toBeNull();
+      expect(getByText('The description')).toBeInTheDocument();
       // Provided title
-      expect(getByText('The title')).not.toBeNull();
+      expect(getByText('The title')).toBeInTheDocument();
       // sharable urls
-      expect(getByDisplayValue('http://localhost/dashboards/dashboard-id')).not.toBeNull();
+      expect(getByDisplayValue('http://localhost/dashboards/dashboard-id')).toBeInTheDocument();
       // missing dependencies warning
-      expect(getByText('There are missing dependencies for the current set of collaborators')).not.toBeNull();
-      expect(getByText(/needs access to/)).not.toBeNull();
+      expect(getByText('There are missing dependencies for the current set of collaborators')).toBeInTheDocument();
+      expect(getByText(/needs access to/)).toBeInTheDocument();
     });
   });
 
@@ -209,7 +209,7 @@ describe('EntityShareModal', () => {
       const ownerTitle = jane.title;
       const { getByText } = render(<SimpleEntityShareModal />);
 
-      expect(getByText(ownerTitle)).not.toBeNull();
+      expect(getByText(ownerTitle)).toBeInTheDocument();
     });
 
     it('allows updating the capability of a grantee', async () => {
