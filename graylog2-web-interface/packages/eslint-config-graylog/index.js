@@ -48,11 +48,16 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/react',
     'plugin:jest-formatting/strict',
+    'plugin:jest-dom/recommended',
+    'plugin:testing-library/recommended',
+    'plugin:testing-library/react',
   ],
   plugins: [
     'import',
     'react-hooks',
     'jest-formatting',
+    'jest-dom',
+    'testing-library',
   ],
   rules: {
     'arrow-body-style': 'off',
