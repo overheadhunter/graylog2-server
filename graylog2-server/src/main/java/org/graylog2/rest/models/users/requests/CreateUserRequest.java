@@ -19,61 +19,107 @@ package org.graylog2.rest.models.users.requests;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
-import org.graylog.autovalue.WithBeanGetter;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@JsonAutoDetect
 @AutoValue
-@WithBeanGetter
+@JsonAutoDetect
+@JsonDeserialize(builder = CreateUserRequest.Builder.class)
 public abstract class CreateUserRequest {
-    @JsonProperty
+
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String SEND_ACTIVATION = "send_activation";
+    public static final String EMAIL = "email";
+    public static final String FULL_NAME = "full_name";
+    public static final String PERMISSIONS = "permissions";
+    public static final String TIMEZONE = "timezone";
+    public static final String SESSION_TIMEOUT_MS = "session_timeout_ms";
+    public static final String STARTPAGE = "startpage";
+    public static final String ROLES = "roles";
+
+    @JsonProperty(PASSWORD)
     public abstract String username();
 
-    @JsonProperty
-    public abstract String password();
+    @JsonProperty(PASSWORD)
+    public abstract Optional<String> password();
 
-    @JsonProperty
+    @JsonProperty(SEND_ACTIVATION)
+    public abstract Optional<Boolean> sendActivation();
+
+    @JsonProperty(EMAIL)
     public abstract String email();
 
-    @JsonProperty
+    @JsonProperty(FULL_NAME)
     public abstract String fullName();
 
-    @JsonProperty
+    @JsonProperty(PERMISSIONS)
     public abstract List<String> permissions();
 
-    @JsonProperty
-    @Nullable
-    public abstract String timezone();
+    @JsonProperty(TIMEZONE)
+    public abstract Optional<String> timezone();
 
-    @JsonProperty
-    @Nullable
-    public abstract Long sessionTimeoutMs();
+    @JsonProperty(SESSION_TIMEOUT_MS)
+    public abstract Optional<Long> sessionTimeoutMs();
 
-    @JsonProperty
-    @Nullable
-    public abstract Startpage startpage();
+    @JsonProperty(STARTPAGE)
+    public abstract Optional<Startpage> startpage();
 
-    @JsonProperty
-    @Nullable
+    @JsonProperty(ROLES)
     public abstract List<String> roles();
 
-    @JsonCreator
-    public static CreateUserRequest create(@JsonProperty("username") @NotEmpty String username,
-                                           @JsonProperty("password") @NotEmpty String password,
-                                           @JsonProperty("email") @Email String email,
-                                           @JsonProperty("full_name") @NotEmpty String fullName,
-                                           @JsonProperty("permissions") @NotNull List<String> permissions,
-                                           @JsonProperty("timezone") @Nullable String timezone,
-                                           @JsonProperty("session_timeout_ms") @Nullable @Min(1) Long sessionTimeoutMs,
-                                           @JsonProperty("startpage") @Nullable Startpage startpage,
-                                           @JsonProperty("roles") @Nullable List<String> roles) {
-        return new AutoValue_CreateUserRequest(username, password, email, fullName, permissions, timezone, sessionTimeoutMs, startpage, roles);
+    public static Builder builder() {
+        return new AutoValue_CreateUserRequest.Builder()
+                .roles(new ArrayList<>())
+                .sendActivation(false);
+    }
+
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+        @JsonCreator
+        public static Builder create() {
+            return new AutoValue_CreateUserRequest.Builder();
+        }
+
+        @JsonProperty(USERNAME)
+        public abstract Builder username(String username);
+
+        @JsonProperty(PASSWORD)
+        public abstract Builder password(String password);
+
+        @JsonProperty(SEND_ACTIVATION)
+        public abstract Builder sendActivation(Boolean sendActivation);
+
+        @Email
+        @JsonProperty(EMAIL)
+        public abstract Builder email(String email);
+
+        @JsonProperty(FULL_NAME)
+        public abstract Builder fullName(String fullName);
+
+        @JsonProperty(PERMISSIONS)
+        public abstract Builder permissions(List<String> permissions);
+
+        @JsonProperty(TIMEZONE)
+        public abstract Builder timezone(String timezone);
+
+        @Min(1)
+        @JsonProperty(SESSION_TIMEOUT_MS)
+        public abstract Builder sessionTimeoutMs(Long sessionTimeoutMs);
+
+        @JsonProperty(STARTPAGE)
+        public abstract Builder startpage(Startpage startpage);
+
+        @JsonProperty(ROLES)
+        public abstract Builder roles(List<String> roles);
+
+        public abstract CreateUserRequest build();
     }
 }

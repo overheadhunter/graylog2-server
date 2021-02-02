@@ -296,25 +296,15 @@ public class UsersResource extends RestResource {
         // Create user.
         User user = userManagementService.create();
         user.setName(cr.username());
-        user.setPassword(cr.password());
+        cr.password().ifPresent(user::setPassword);
         user.setFullName(cr.fullName());
         user.setEmail(cr.email());
         user.setPermissions(cr.permissions());
         setUserRoles(cr.roles(), user);
 
-        if (cr.timezone() != null) {
-            user.setTimeZone(cr.timezone());
-        }
-
-        final Long sessionTimeoutMs = cr.sessionTimeoutMs();
-        if (sessionTimeoutMs != null) {
-            user.setSessionTimeoutMs(sessionTimeoutMs);
-        }
-
-        final Startpage startpage = cr.startpage();
-        if (startpage != null) {
-            user.setStartpage(startpage.type(), startpage.id());
-        }
+        cr.timezone().ifPresent(user::setTimeZone);
+        cr.sessionTimeoutMs().ifPresent(user::setSessionTimeoutMs);
+        cr.startpage().ifPresent(sp -> user.setStartpage(sp.type(), sp.id()));
 
         final String id = userManagementService.save(user);
         LOG.debug("Saved user {} with id {}", user.getName(), id);
